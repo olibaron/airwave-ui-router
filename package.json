@@ -4,34 +4,17 @@
   "version": "0.3.1",
   "homepage": "http://angular-ui.github.com/",
   "contributors": [
-    {
-      "name": "Nate Abele",
-      "email": "nate@radify.io",
-      "web": "https://github.com/nateabele"
-    },
-    {
-      "name": "Chris Thielen",
-      "email": "christhielen@gmail.com",
-      "web": "https://github.com/christopherthielen"
-    },
-    {
-      "name": "Tim Kindberg",
-      "web": "https://github.com/timkindberg"
-    },
-    {
-      "name": "Karsten Sperling",
-      "web": "https://github.com/ksperling"
-    }
+    "Nate Abele <nate@radify.io> (https://github.com/nateabele)",
+    "Chris Thielen <christhielen@gmail.com> (https://github.com/christopherthielen)",
+    "Tim Kindberg (https://github.com/timkindberg)",
+    "Karsten Sperling (https://github.com/ksperling)"
   ],
   "maintainers": [
-    {
-      "name": "AngularUI",
-      "web": "https://github.com/angular-ui?tab=members"
-    }
+    "AngularUI (https://github.com/angular-ui?tab=members)"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular-ui/ui-router.git"
+    "url": "git+https://github.com/angular-ui/ui-router.git"
   },
   "bugs": {
     "url": "https://github.com/angular-ui/ui-router/issues"
@@ -72,5 +55,15 @@
     "requirejs": "^2.1.22",
     "shelljs": "~0.2.6"
   },
-  "main": "release/angular-ui-router.js"
+  "main": "release/angular-ui-router.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "angular",
+    "ui-router"
+  ]
 }
