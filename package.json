@@ -1,7 +1,7 @@
 {
   "name": "airwave-ui-router",
   "description": "State-based routing for AngularJS",
-  "version": "0.3.5",
+  "version": "0.3.56",
   "homepage": "https://github.com/airwave-development/airwave-ui-router",
   "contributors": [
     "Olivier de Jong <olivier@airwave.io> (https://github.com/airwave-development)"
