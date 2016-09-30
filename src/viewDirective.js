@@ -25,6 +25,9 @@
  * *Note: To revert back to old [`$anchorScroll`](http://docs.angularjs.org/api/ng.$anchorScroll)
  * functionality, call `$uiViewScrollProvider.useAnchorScroll()`.*
  *
+ * @param {string=} animation If false, the non-animated renderer will be selected (no animations
+ * will be applied to the ui-view)
+ *
  * @param {string=} onload Expression to evaluate whenever the view updates.
  *
  * @example
@@ -131,7 +134,8 @@
  * </pre>
  */
 $ViewDirective.$inject = ['$state', '$injector', '$uiViewScroll', '$interpolate', '$q'];
-function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate,   $q) {
+
+function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
 
   function getService() {
     return ($injector.has) ? function(service) {
@@ -146,18 +150,26 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate,
   }
 
   var service = getService(),
-      $animator = service('$animator'),
-      $animate = service('$animate');
+    $animator = service('$animator'),
+    $animate = service('$animate');
 
   // Returns a set of DOM manipulation functions based on which Angular version
   // it should use
   function getRenderer(attrs, scope) {
-    var statics = function() {
-      return {
-        enter: function (element, target, cb) { target.after(element); cb(); },
-        leave: function (element, cb) { element.remove(); cb(); }
-      };
+    var statics = {
+      enter: function(element, target, cb) {
+        target.after(element);
+        cb();
+      },
+      leave: function(element, cb) {
+        element.remove();
+        cb();
+      }
     };
+
+    if(attrs.animation && attrs.animation === 'false') {
+        return statics;
+    }
 
     if ($animate) {
       return {
@@ -182,12 +194,18 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate,
       var animate = $animator && $animator(scope, attrs);
 
       return {
-        enter: function(element, target, cb) {animate.enter(element, null, target); cb(); },
-        leave: function(element, cb) { animate.leave(element); cb(); }
+        enter: function(element, target, cb) {
+          animate.enter(element, null, target);
+          cb();
+        },
+        leave: function(element, cb) {
+          animate.leave(element);
+          cb();
+        }
       };
     }
 
-    return statics();
+    return statics;
   }
 
   var directive = {
@@ -195,13 +213,13 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate,
     terminal: true,
     priority: 400,
     transclude: 'element',
-    compile: function (tElement, tAttrs, $transclude) {
-      return function (scope, $element, attrs) {
+    compile: function(tElement, tAttrs, $transclude) {
+      return function(scope, $element, attrs) {
         var previousEl, currentEl, currentScope, latestLocals,
-            onloadExp     = attrs.onload || '',
-            autoScrollExp = attrs.autoscroll,
-            renderer      = getRenderer(attrs, scope),
-            inherited     = $element.inheritedData('$uiView');
+          onloadExp = attrs.onload || '',
+          autoScrollExp = attrs.autoscroll,
+          renderer = getRenderer(attrs, scope),
+          inherited = $element.inheritedData('$uiView');
 
         scope.$on('$stateChangeSuccess', function() {
           updateView(false);
@@ -234,8 +252,8 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate,
 
         function updateView(firstTime) {
           var newScope,
-              name            = getUiViewName(scope, attrs, $element, $interpolate),
-              previousLocals  = name && $state.$current && $state.$current.locals[name];
+            name = getUiViewName(scope, attrs, $element, $interpolate),
+            previousLocals = name && $state.$current && $state.$current.locals[name];
 
           if (!firstTime && previousLocals === latestLocals) return; // nothing to do
           newScope = scope.$new();
@@ -256,7 +274,8 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate,
           newScope.$emit('$viewContentLoading', name);
 
           var clone = $transclude(newScope, function(clone) {
-            var animEnter = $q.defer(), animLeave = $q.defer();
+            var animEnter = $q.defer(),
+              animLeave = $q.defer();
             var viewAnimData = {
               $animEnter: animEnter.promise,
               $animLeave: animLeave.promise,
@@ -266,7 +285,7 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate,
             clone.data('$uiViewAnim', viewAnimData);
             renderer.enter(clone, $element, function onUiViewEnter() {
               animEnter.resolve();
-              if(currentScope) {
+              if (currentScope) {
                 currentScope.$emit('$viewContentAnimationEnded');
               }
 
@@ -301,27 +320,31 @@ function $ViewDirective(   $state,   $injector,   $uiViewScroll,   $interpolate,
 }
 
 $ViewDirectiveFill.$inject = ['$compile', '$controller', '$state', '$interpolate'];
-function $ViewDirectiveFill (  $compile,   $controller,   $state,   $interpolate) {
+
+function $ViewDirectiveFill($compile, $controller, $state, $interpolate) {
   return {
     restrict: 'ECA',
     priority: -400,
-    compile: function (tElement) {
+    compile: function(tElement) {
       var initial = tElement.html();
-      return function (scope, $element, attrs) {
+      return function(scope, $element, attrs) {
         var current = $state.$current,
-            name = getUiViewName(scope, attrs, $element, $interpolate),
-            locals  = current && current.locals[name];
+          name = getUiViewName(scope, attrs, $element, $interpolate),
+          locals = current && current.locals[name];
 
-        if (! locals) {
+        if (!locals) {
           return;
         }
 
-        $element.data('$uiView', { name: name, state: locals.$$state });
+        $element.data('$uiView', {
+          name: name,
+          state: locals.$$state
+        });
         $element.html(locals.$template ? locals.$template : initial);
 
         //added animation option for ui-view
-        if(locals.$$state.data && locals.$$state.data.animation) {
-            $element.addClass(locals.$$state.data.animation);
+        if (locals.$$state.data && locals.$$state.data.animation) {
+          $element.addClass(locals.$$state.data.animation);
         }
 
         var resolveData = angular.extend({}, locals);
@@ -355,7 +378,7 @@ function $ViewDirectiveFill (  $compile,   $controller,   $state,   $interpolate
 function getUiViewName(scope, attrs, element, $interpolate) {
   var name = $interpolate(attrs.uiView || attrs.name || '')(scope);
   var uiViewCreatedBy = element.inheritedData('$uiView');
-  return name.indexOf('@') >= 0 ?  name :  (name + '@' + (uiViewCreatedBy ? uiViewCreatedBy.state.name : ''));
+  return name.indexOf('@') >= 0 ? name : (name + '@' + (uiViewCreatedBy ? uiViewCreatedBy.state.name : ''));
 }
 
 angular.module('ui.router.state').directive('uiView', $ViewDirective);
