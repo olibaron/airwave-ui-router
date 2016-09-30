@@ -213,9 +213,9 @@ module.exports = function(grunt) {
 
       promising(this,
         system('git add *').then(function () {
-          return system('git commit -m "updated version"');
+          system('git commit -m "updated version"');
         }).then(function () {
-          return system('git tag ' + version + '');
+          system('git tag ' + version + '');
         })
       );
   });
