@@ -170,7 +170,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
     if ($animate) {
       return {
         enter: function(element, target, cb) {
-          if (element.attr('animation') && element.attr('animation') !== 'true') {
+          if (element.attr('animation') && element.attr('animation') === 'false') {
             target.after(element);
             cb();
           } else {
@@ -183,7 +183,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
 
         },
         leave: function(element, cb) {
-          if (element.attr('animation') && element.attr('animation') !== 'true') {
+          if (element.attr('animation') && element.attr('animation') === 'false') {
             element.remove();
             cb();
           } else {
@@ -202,7 +202,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
 
       return {
         enter: function(element, target, cb) {
-          if (element.attr('animation') && element.attr('animation') !== 'true') {
+          if (element.attr('animation') && element.attr('animation') === 'false') {
             target.after(element);
             cb();
           } else {
@@ -211,7 +211,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
           }
         },
         leave: function(element, cb) {
-          if (element.attr('animation') && element.attr('animation') !== 'true') {
+          if (element.attr('animation') && element.attr('animation') === 'false') {
             element.remove();
             cb();
           } else {
