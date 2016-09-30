@@ -1,26 +1,10 @@
-# AngularUI Router &nbsp;[![Build Status](https://travis-ci.org/angular-ui/ui-router.svg?branch=master)](https://travis-ci.org/angular-ui/ui-router)
+# AngularUI Router &nbsp;[![Build Status](https://travis-ci.org/airwave-development/airwave-ui-router.svg?branch=master)](https://travis-ci.org/airwave-development/airwave-ui-router)
+
 
 #### The de-facto solution to flexible routing with nested views
----
-**[Download 0.2.18](https://cdn.rawgit.com/angular-ui/ui-router/0.2.18/release/angular-ui-router.js)** (or **[Minified](https://cdn.rawgit.com/angular-ui/ui-router/0.2.18/release/angular-ui-router.min.js)**) **|**
-**[Guide](https://github.com/angular-ui/ui-router/wiki) |**
-**[API](http://angular-ui.github.io/ui-router/site) |**
-**[Sample](http://angular-ui.github.com/ui-router/sample/) ([Src](https://github.com/angular-ui/ui-router/tree/gh-pages/sample)) |**
-**[FAQ](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions) |**
-**[Resources](#resources) |**
-**[Report an Issue](https://github.com/angular-ui/ui-router/blob/master/CONTRIBUTING.md#report-an-issue) |**
-**[Contribute](https://github.com/angular-ui/ui-router/blob/master/CONTRIBUTING.md#contribute) |**
-**[Help!](http://stackoverflow.com/questions/ask?tags=angularjs,angular-ui-router) |**
-**[Discuss](https://groups.google.com/forum/#!categories/angular-ui/router)**
-
----
-
-*_Please help us out by testing the 1.0 alpha release!_* 
-
-[1.0.0alpha0 Announcement](https://github.com/angular-ui/ui-router/releases/tag/1.0.0alpha0) ([Source  Code](https://github.com/angular-ui/ui-router/tree/master)) | [Sample App](http://ui-router.github.io/sample-app/) ([Source Code](https://github.com/ui-router/sample-app)) | [Known Issues](https://github.com/angular-ui/ui-router/issues?q=is%3Aissue+is%3Aopen+label%3A1.0)
 
 
----
+--
 
 AngularUI Router is a routing framework for [AngularJS](http://angularjs.org), which allows you to organize the
 parts of your interface into a [*state machine*](https://en.wikipedia.org/wiki/Finite-state_machine). Unlike the
@@ -30,7 +14,7 @@ which may optionally have routes, as well as other behavior, attached.
 
 States are bound to *named*, *nested* and *parallel views*, allowing you to powerfully manage your application's interface.
 
-Check out the sample app: http://angular-ui.github.io/ui-router/sample/
+Check out the sample app: https://github.com/airwave-development/airwave-ui-router/sample/
 
 -
 **Note:** *UI-Router is under active development. As such, while this library is well-tested, the API may change. Consider using it in production applications only if you're comfortable following a changelog and updating your usage accordingly.*
@@ -40,16 +24,16 @@ Check out the sample app: http://angular-ui.github.io/ui-router/sample/
 
 **(1)** Get UI-Router in one of the following ways:
  - clone & [build](CONTRIBUTING.md#developing) this repository
- - [download the release](http://angular-ui.github.io/ui-router/release/angular-ui-router.js) (or [minified](http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js))
- - [link to cdn](http://cdnjs.com/libraries/angular-ui-router)
- - via **[jspm](http://jspm.io/)**: by running `$ jspm install angular-ui-router` from your console
- - or via **[npm](https://www.npmjs.org/)**: by running `$ npm install angular-ui-router` from your console
- - or via **[Bower](http://bower.io/)**: by running `$ bower install angular-ui-router` from your console
+ - [download the release](https://github.com/airwave-development/airwave-ui-router/release/airwave-ui-router.js) (or [minified](https://github.com/airwave-development/airwave-ui-router/release/airwave-ui-router.min.js))
+ - [link to cdn](http://cdnjs.com/libraries/airwave-ui-router)
+ - via **[jspm](http://jspm.io/)**: by running `$ jspm install airwave-ui-router` from your console
+ - or via **[npm](https://www.npmjs.org/)**: by running `$ npm install airwave-ui-router` from your console
+ - or via **[Bower](http://bower.io/)**: by running `$ bower install airwave-ui-router` from your console
  - or via **[Component](https://github.com/component/component)**: by running `$ component install angular-ui/ui-router` from your console
 
-**(2)** Include `angular-ui-router.js` (or `angular-ui-router.min.js`) in your `index.html`, after including Angular itself (For Component users: ignore this step)
+**(2)** Include `airwave-ui-router.js` (or `airwave-ui-router.min.js`) in your `index.html`, after including Angular itself (For Component users: ignore this step)
 
-**(3)** Add `'ui.router'` to your main module's list of dependencies (For Component users: replace `'ui.router'` with `require('angular-ui-router')`)
+**(3)** Add `'ui.router'` to your main module's list of dependencies (For Component users: replace `'ui.router'` with `require('airwave-ui-router')`)
 
 When you're done, your setup should look similar to the following:
 
@@ -59,11 +43,11 @@ When you're done, your setup should look similar to the following:
 <html ng-app="myApp">
 <head>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-    <script src="js/angular-ui-router.min.js"></script>
+    <script src="js/airwave-ui-router.min.js"></script>
     <script>
         var myApp = angular.module('myApp', ['ui.router']);
         // For Component users, it should look like this:
-        // var myApp = angular.module('myApp', [require('angular-ui-router')]);
+        // var myApp = angular.module('myApp', [require('airwave-ui-router')]);
     </script>
     ...
 </head>
@@ -232,12 +216,12 @@ myApp.config(function($stateProvider) {
 ## Resources
 
 * [In-Depth Guide](https://github.com/angular-ui/ui-router/wiki)
-* [API Reference](http://angular-ui.github.io/ui-router/site)
+* [API Reference](https://github.com/airwave-development/airwave-ui-router/site)
 * [Sample App](http://angular-ui.github.com/ui-router/sample/) ([Source](https://github.com/angular-ui/ui-router/tree/gh-pages/sample))
 * [FAQ](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions)
 * [Slides comparing ngRoute to ui-router](http://slid.es/timkindberg/ui-router#/)
 * [UI-Router Extras / Addons](http://christopherthielen.github.io/ui-router-extras/#/home) (@christopherthielen)
- 
+
 ### Videos
 
 * [Introduction Video](https://egghead.io/lessons/angularjs-introduction-ui-router) (egghead.io)

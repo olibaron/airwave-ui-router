@@ -87,7 +87,7 @@ angular.module('uiRouterSample', [
                          '<li><a href="https://github.com/angular-ui/ui-router#quick-start">Quick Start</a></li>' +
                          '<li><a href="https://github.com/angular-ui/ui-router/wiki">In-Depth Guide</a></li>' +
                          '<li><a href="https://github.com/angular-ui/ui-router/wiki/Quick-Reference">API Reference(old)</a></li>' +
-                         '<li><a href="http://angular-ui.github.io/ui-router/site">Documentation</a></li>'+
+                         '<li><a href="https://github.com/airwave-development/airwave-ui-router/site">Documentation</a></li>'+
                        '</ul>';
               }, 100);
             }]

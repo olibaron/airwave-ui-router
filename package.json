@@ -1,29 +1,26 @@
 {
   "name": "airwave-ui-router",
   "description": "State-based routing for AngularJS",
-  "version": "0.3.3",
-  "homepage": "http://angular-ui.github.com/",
+  "version": "0.3.4",
+  "homepage": "https://github.com/airwave-development/airwave-ui-router",
   "contributors": [
-    "Nate Abele <nate@radify.io> (https://github.com/nateabele)",
-    "Chris Thielen <christhielen@gmail.com> (https://github.com/christopherthielen)",
-    "Tim Kindberg (https://github.com/timkindberg)",
-    "Karsten Sperling (https://github.com/ksperling)"
+    "Olivier de Jong <olivier@airwave.io> (https://github.com/airwave-development)"
   ],
   "maintainers": [
-    "AngularUI (https://github.com/angular-ui?tab=members)"
+    "Olivier de Jong <olivier@airwave.io> (https://github.com/airwave-development)"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/airwave-development/airwave-ui-router.git"
   },
   "bugs": {
-    "url": "https://github.com/angular-ui/ui-router/issues"
+    "url": "https://github.com/airwave-development/airwave-ui-router/issues"
   },
   "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/angular-ui/ui-router/blob/master/LICENSE"
+      "url": "https://github.com/airwave-development/airwave-ui-router/blob/master/LICENSE"
     }
   ],
   "dependencies": {
@@ -55,7 +52,7 @@
     "requirejs": "^2.1.22",
     "shelljs": "~0.2.6"
   },
-  "main": "release/angular-ui-router.js",
+  "main": "release/airwave-ui-router.js",
   "directories": {
     "test": "test"
   },
