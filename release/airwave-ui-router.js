@@ -1,6 +1,6 @@
 /**
  * State-based routing for AngularJS
- * @version v0.3.9
+ * @version v0.4.0
  * @link https://github.com/airwave-development/airwave-ui-router
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -3946,7 +3946,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
     if ($animate) {
       return {
         enter: function(element, target, cb) {
-          if (element.attr('animation') && element.attr('animation') !== 'true') {
+          if (element.attr('animation') && element.attr('animation') === 'false') {
             target.after(element);
             cb();
           } else {
@@ -3959,7 +3959,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
 
         },
         leave: function(element, cb) {
-          if (element.attr('animation') && element.attr('animation') !== 'true') {
+          if (element.attr('animation') && element.attr('animation') === 'false') {
             element.remove();
             cb();
           } else {
@@ -3978,7 +3978,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
 
       return {
         enter: function(element, target, cb) {
-          if (element.attr('animation') && element.attr('animation') !== 'true') {
+          if (element.attr('animation') && element.attr('animation') === 'false') {
             target.after(element);
             cb();
           } else {
@@ -3987,7 +3987,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
           }
         },
         leave: function(element, cb) {
-          if (element.attr('animation') && element.attr('animation') !== 'true') {
+          if (element.attr('animation') && element.attr('animation') === 'false') {
             element.remove();
             cb();
           } else {
