@@ -194,7 +194,7 @@ describe("UrlRouter", function () {
         $location.url('/old');
 
         spyOn($location, 'url').andCallThrough();
-        $urlRouter.update(true);
+        $urlRouter.update('read');
         expect($location.url).toHaveBeenCalled();
 
         $location.url('/new');
@@ -218,7 +218,7 @@ describe("UrlRouter", function () {
       }));
 
       it('should handle the new html5Mode object config from Angular 1.3', inject(function($urlRouter) {
-        
+
         $lp.html5Mode({
           enabled: false
         });

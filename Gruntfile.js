@@ -137,9 +137,9 @@ module.exports = function (grunt) {
   grunt.registerTask('widedocs', 'Convert to bootstrap container-fluid', function () {
     promising(this,
       system(
-      'sed -i.bak ' + 
-      '-e \'s/class="row"/class="row-fluid"/\' ' + 
-      '-e \'s/icon-cog"><\\/i>/icon-cog"><\\/i>Provider/\' ' + 
+      'sed -i.bak ' +
+      '-e \'s/class="row"/class="row-fluid"/\' ' +
+      '-e \'s/icon-cog"><\\/i>/icon-cog"><\\/i>Provider/\' ' +
       '-e \'s/role="main" class="container"/role="main" class="container-fluid"/\' site/index.html')
     );
   });
@@ -232,7 +232,7 @@ module.exports = function (grunt) {
 
   function ensureCleanMaster() {
     return exec('git symbolic-ref HEAD').then(function (result) {
-      if (result.stdout.trim() !== 'refs/heads/legacy') throw new Error('Not on legacy branch, aborting');
+      if (result.stdout.trim() !== 'refs/heads/master') throw new Error('Not on legacy branch, aborting');
       return exec('git status --porcelain');
     }).then(function (result) {
       if (result.stdout.trim() !== '') throw new Error('Working copy is dirty, aborting');

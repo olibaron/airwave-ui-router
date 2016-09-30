@@ -54,7 +54,7 @@
  *     "": {
  *       template: "<h1>HELLO!</h1>"
  *     }
- *   }    
+ *   }
  * })
  * </pre>
  *
@@ -70,7 +70,7 @@
  *     "main": {
  *       template: "<h1>HELLO!</h1>"
  *     }
- *   }    
+ *   }
  * })
  * </pre>
  *
@@ -93,7 +93,7 @@
  *     "data": {
  *       template: "<data_thing/>"
  *     }
- *   }    
+ *   }
  * })
  * </pre>
  *
@@ -318,6 +318,11 @@ function $ViewDirectiveFill (  $compile,   $controller,   $state,   $interpolate
 
         $element.data('$uiView', { name: name, state: locals.$$state });
         $element.html(locals.$template ? locals.$template : initial);
+
+        //added animation option for ui-view
+        if(locals.$$state.data && locals.$$state.data.animation) {
+            $element.addClass(locals.$$state.data.animation);
+        }
 
         var resolveData = angular.extend({}, locals);
         scope[locals.$$resolveAs] = resolveData;
