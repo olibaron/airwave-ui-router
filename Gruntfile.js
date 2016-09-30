@@ -210,10 +210,14 @@ module.exports = function(grunt) {
 
     var version = grunt.config('pkg.version'),
       releasedir = grunt.config('builddir');
-    promising(this,
-      system('git commit -m \'release ' + version + '\'').then(function() {
-        return system('git tag ' + version + '');
-      }));
+
+      promising(this,
+        system('git add *').then(function () {
+          return system('git commit -m \'release ' + version + '\'');
+        }).then(function () {
+          return system('git tag ' + version + '');
+        })
+      );
   });
 
 
