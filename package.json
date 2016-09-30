@@ -1,7 +1,7 @@
 {
   "name": "airwave-ui-router",
   "description": "State-based routing for AngularJS",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "homepage": "http://angular-ui.github.com/",
   "contributors": [
     "Nate Abele <nate@radify.io> (https://github.com/nateabele)",

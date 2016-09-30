@@ -1,8 +1,8 @@
 {
   "name": "airwave-ui-router",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "license" : "MIT",
-  "main": "./release/angular-ui-router.js",
+  "main": "./release/airwave-ui-router.js",
   "dependencies": {
     "angular": "^1.0.8"
   },
