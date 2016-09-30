@@ -184,7 +184,7 @@ module.exports = function (grunt) {
 
     promising(this,
       ensureCleanMaster().then(function () {
-        return exec('git tag -l \'' + version + '\'');
+        return exec('git tag -l ' + version + '');
       }).then(function (result) {
         if (result.stdout.trim() !== '') throw new Error('Tag \'' + version + '\' already exists');
         grunt.config('buildtag', '');
@@ -198,7 +198,7 @@ module.exports = function (grunt) {
 
     var version = grunt.config('pkg.version'), releasedir = grunt.config('builddir');
     promising(this,
-       system('git tag \'' + version + '\'')
+       system('git tag ' + version + '')
     );
   });
 

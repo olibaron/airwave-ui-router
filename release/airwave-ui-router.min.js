@@ -1,6 +1,6 @@
 /**
  * State-based routing for AngularJS
- * @version v0.3.2
+ * @version v0.3.3
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
