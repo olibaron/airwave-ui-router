@@ -167,7 +167,7 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
       }
     };
 
-    if(attrs.animation && attrs.animation === 'false') {
+    if(attrs.animation && attrs.animation !== 'true') {
         return statics;
     }
 
