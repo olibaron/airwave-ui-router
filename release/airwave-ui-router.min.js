@@ -1,6 +1,6 @@
 /**
  * State-based routing for AngularJS
- * @version v0.3.6
+ * @version v0.3.7
  * @link https://github.com/airwave-development/airwave-ui-router
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
