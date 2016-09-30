@@ -1,6 +1,6 @@
 /**
  * State-based routing for AngularJS
- * @version v0.3.8
+ * @version v0.3.9
  * @link https://github.com/airwave-development/airwave-ui-router
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -3943,24 +3943,31 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
       }
     };
 
-    if(attrs.animation && attrs.animation !== 'true') {
-        return statics;
-    }
-
     if ($animate) {
       return {
         enter: function(element, target, cb) {
-          if (angular.version.minor > 2) {
-            $animate.enter(element, null, target).then(cb);
+          if (element.attr('animation') && element.attr('animation') !== 'true') {
+            target.after(element);
+            cb();
           } else {
-            $animate.enter(element, null, target, cb);
+            if (angular.version.minor > 2) {
+              $animate.enter(element, null, target).then(cb);
+            } else {
+              $animate.enter(element, null, target, cb);
+            }
           }
+
         },
         leave: function(element, cb) {
-          if (angular.version.minor > 2) {
-            $animate.leave(element).then(cb);
+          if (element.attr('animation') && element.attr('animation') !== 'true') {
+            element.remove();
+            cb();
           } else {
-            $animate.leave(element, cb);
+            if (angular.version.minor > 2) {
+              $animate.leave(element).then(cb);
+            } else {
+              $animate.leave(element, cb);
+            }
           }
         }
       };
@@ -3971,12 +3978,22 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
 
       return {
         enter: function(element, target, cb) {
-          animate.enter(element, null, target);
-          cb();
+          if (element.attr('animation') && element.attr('animation') !== 'true') {
+            target.after(element);
+            cb();
+          } else {
+            animate.enter(element, null, target);
+            cb();
+          }
         },
         leave: function(element, cb) {
-          animate.leave(element);
-          cb();
+          if (element.attr('animation') && element.attr('animation') !== 'true') {
+            element.remove();
+            cb();
+          } else {
+            animate.leave(element);
+            cb();
+          }
         }
       };
     }
