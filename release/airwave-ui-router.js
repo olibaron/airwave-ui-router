@@ -1,6 +1,6 @@
 /**
  * State-based routing for AngularJS
- * @version v0.3.1
+ * @version v0.3.2
  * @link http://angular-ui.github.com/
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -1759,9 +1759,9 @@ angular.module('ui.router.util').run(['$urlMatcherFactory', function($urlMatcher
  * @requires $locationProvider
  *
  * @description
- * `$urlRouterProvider` has the responsibility of watching `$location`. 
- * When `$location` changes it runs through a list of rules one by one until a 
- * match is found. `$urlRouterProvider` is used behind the scenes anytime you specify 
+ * `$urlRouterProvider` has the responsibility of watching `$location`.
+ * When `$location` changes it runs through a list of rules one by one until a
+ * match is found. `$urlRouterProvider` is used behind the scenes anytime you specify
  * a url in a state configuration. All urls are compiled into a UrlMatcher object.
  *
  * There are several methods on `$urlRouterProvider` that make it useful to use directly
@@ -1846,8 +1846,8 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
    * });
    * </pre>
    *
-   * @param {string|function} rule The url path you want to redirect to or a function 
-   * rule that returns the url path. The function version is passed two params: 
+   * @param {string|function} rule The url path you want to redirect to or a function
+   * rule that returns the url path. The function version is passed two params:
    * `$injector` and `$location` services, and must return a url string.
    *
    * @return {object} `$urlRouterProvider` - `$urlRouterProvider` instance
@@ -1875,8 +1875,8 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
    * @methodOf ui.router.router.$urlRouterProvider
    *
    * @description
-   * Registers a handler for a given url matching. 
-   * 
+   * Registers a handler for a given url matching.
+   *
    * If the handler is a string, it is
    * treated as a redirect, and is interpolated according to the syntax of match
    * (i.e. like `String.replace()` for `RegExp`, or like a `UrlMatcher` pattern otherwise).
@@ -2102,8 +2102,10 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
           location = $location.url();
           return;
         }
-        if ($location.url() === location) return;
-
+        if ($location.url() === location) {
+            return;
+        }
+            
         if(type === 'defaultPrevented') {
           $location.replace();
         } else {
@@ -2159,7 +2161,7 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
         }
 
         isHtml5 = isHtml5 && $sniffer.history;
-        
+
         var url = urlMatcher.format(params);
         options = options || {};
 
@@ -3828,7 +3830,7 @@ angular.module('ui.router.state').provider('$uiViewScroll', $ViewScrollProvider)
  *     "": {
  *       template: "<h1>HELLO!</h1>"
  *     }
- *   }    
+ *   }
  * })
  * </pre>
  *
@@ -3844,7 +3846,7 @@ angular.module('ui.router.state').provider('$uiViewScroll', $ViewScrollProvider)
  *     "main": {
  *       template: "<h1>HELLO!</h1>"
  *     }
- *   }    
+ *   }
  * })
  * </pre>
  *
@@ -3867,7 +3869,7 @@ angular.module('ui.router.state').provider('$uiViewScroll', $ViewScrollProvider)
  *     "data": {
  *       template: "<data_thing/>"
  *     }
- *   }    
+ *   }
  * })
  * </pre>
  *
@@ -4092,6 +4094,11 @@ function $ViewDirectiveFill (  $compile,   $controller,   $state,   $interpolate
 
         $element.data('$uiView', { name: name, state: locals.$$state });
         $element.html(locals.$template ? locals.$template : initial);
+
+        //added animation option for ui-view
+        if(locals.$$state.data && locals.$$state.data.animation) {
+            $element.addClass(locals.$$state.data.animation);
+        }
 
         var resolveData = angular.extend({}, locals);
         scope[locals.$$resolveAs] = resolveData;
