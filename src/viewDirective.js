@@ -25,9 +25,6 @@
  * *Note: To revert back to old [`$anchorScroll`](http://docs.angularjs.org/api/ng.$anchorScroll)
  * functionality, call `$uiViewScrollProvider.useAnchorScroll()`.*
  *
- * @param {string=} animation If false, the non-animated renderer will be selected (no animations
- * will be applied to the ui-view)
- *
  * @param {string=} onload Expression to evaluate whenever the view updates.
  *
  * @example
@@ -170,28 +167,17 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
     if ($animate) {
       return {
         enter: function(element, target, cb) {
-          if (element.attr('animation') && element.attr('animation') === 'false') {
-            target.after(element);
-            cb();
+          if (angular.version.minor > 2) {
+            $animate.enter(element, null, target).then(cb);
           } else {
-            if (angular.version.minor > 2) {
-              $animate.enter(element, null, target).then(cb);
-            } else {
-              $animate.enter(element, null, target, cb);
-            }
+            $animate.enter(element, null, target, cb);
           }
-
         },
         leave: function(element, cb) {
-          if (element.attr('animation') && element.attr('animation') === 'false') {
-            element.remove();
-            cb();
+          if (angular.version.minor > 2) {
+            $animate.leave(element).then(cb);
           } else {
-            if (angular.version.minor > 2) {
-              $animate.leave(element).then(cb);
-            } else {
-              $animate.leave(element, cb);
-            }
+            $animate.leave(element, cb);
           }
         }
       };
@@ -202,22 +188,13 @@ function $ViewDirective($state, $injector, $uiViewScroll, $interpolate, $q) {
 
       return {
         enter: function(element, target, cb) {
-          if (element.attr('animation') && element.attr('animation') === 'false') {
-            target.after(element);
-            cb();
-          } else {
-            animate.enter(element, null, target);
-            cb();
-          }
+
+          animate.enter(element, null, target);
+          cb();
         },
         leave: function(element, cb) {
-          if (element.attr('animation') && element.attr('animation') === 'false') {
-            element.remove();
-            cb();
-          } else {
-            animate.leave(element);
-            cb();
-          }
+          animate.leave(element);
+          cb();
         }
       };
     }
