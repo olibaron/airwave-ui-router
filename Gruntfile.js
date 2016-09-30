@@ -1,5 +1,5 @@
 /*global module:false*/
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
   var files = require('./files').files;
@@ -17,15 +17,15 @@ module.exports = function (grunt) {
         ' * @license MIT License, http://www.opensource.org/licenses/MIT\n' +
         ' */'
     },
-    clean: [ '<%= builddir %>' ],
+    clean: ['<%= builddir %>'],
     concat: {
       options: {
-        banner: '<%= meta.banner %>\n\n'+
-                '/* commonjs package manager support (eg componentjs) */\n'+
-                'if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){\n'+
-                '  module.exports = \'ui.router\';\n'+
-                '}\n\n'+
-                '(function (window, angular, undefined) {\n',
+        banner: '<%= meta.banner %>\n\n' +
+          '/* commonjs package manager support (eg componentjs) */\n' +
+          'if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){\n' +
+          '  module.exports = \'ui.router\';\n' +
+          '}\n\n' +
+          '(function (window, angular, undefined) {\n',
         footer: '})(window, window.angular);'
       },
       build: {
@@ -61,7 +61,7 @@ module.exports = function (grunt) {
     connect: {
       server: {},
       sample: {
-        options:{
+        options: {
           port: 5555,
           keepalive: true
         }
@@ -78,25 +78,37 @@ module.exports = function (grunt) {
         colors: true,
         autoWatch: false,
         autoWatchInterval: 0,
-        browsers: [ grunt.option('browser') || 'PhantomJS' ]
+        browsers: [grunt.option('browser') || 'PhantomJS']
       },
       unit: {
-        browsers: [ grunt.option('browser') || 'PhantomJS' ]
+        browsers: [grunt.option('browser') || 'PhantomJS']
       },
       debug: {
         singleRun: false,
         background: false,
-        browsers: [ grunt.option('browser') || 'Chrome' ]
+        browsers: [grunt.option('browser') || 'Chrome']
       },
-      ng108: { configFile: 'config/karma-1.0.8.js' },
-      ng115: { configFile: 'config/karma-1.1.5.js' },
-      ng1214: { configFile: 'config/karma-1.2.14.js' },
-      ng130: { configFile: 'config/karma-1.3.0.js' },
-      ng149: { configFile: 'config/karma-1.4.9.js' },
-      ng150: { configFile: 'config/karma-1.5.0.js' },
+      ng108: {
+        configFile: 'config/karma-1.0.8.js'
+      },
+      ng115: {
+        configFile: 'config/karma-1.1.5.js'
+      },
+      ng1214: {
+        configFile: 'config/karma-1.2.14.js'
+      },
+      ng130: {
+        configFile: 'config/karma-1.3.0.js'
+      },
+      ng149: {
+        configFile: 'config/karma-1.4.9.js'
+      },
+      ng150: {
+        configFile: 'config/karma-1.5.0.js'
+      },
       background: {
-          background: true,
-          browsers: [ grunt.option('browser') || 'PhantomJS' ]
+        background: true,
+        browsers: [grunt.option('browser') || 'PhantomJS']
       },
       watch: {
         singleRun: false,
@@ -112,7 +124,7 @@ module.exports = function (grunt) {
     ngdocs: {
       options: {
         dest: 'site',
-        styles: [ 'ngdoc_assets/uirouter-docs.css' ],
+        styles: ['ngdoc_assets/uirouter-docs.css'],
         html5Mode: false,
         title: 'UI Router',
         startPage: '/api/ui.router',
@@ -134,58 +146,58 @@ module.exports = function (grunt) {
   grunt.registerTask('dev', 'Run dev server and watch for changes', ['build', 'connect:server', 'karma:background', 'watch']);
   grunt.registerTask('sample', 'Run connect server with keepalive:true for sample app development', ['connect:sample']);
 
-  grunt.registerTask('widedocs', 'Convert to bootstrap container-fluid', function () {
+  grunt.registerTask('widedocs', 'Convert to bootstrap container-fluid', function() {
     promising(this,
       system(
-      'sed -i.bak ' +
-      '-e \'s/class="row"/class="row-fluid"/\' ' +
-      '-e \'s/icon-cog"><\\/i>/icon-cog"><\\/i>Provider/\' ' +
-      '-e \'s/role="main" class="container"/role="main" class="container-fluid"/\' site/index.html')
+        'sed -i.bak ' +
+        '-e \'s/class="row"/class="row-fluid"/\' ' +
+        '-e \'s/icon-cog"><\\/i>/icon-cog"><\\/i>Provider/\' ' +
+        '-e \'s/role="main" class="container"/role="main" class="container-fluid"/\' site/index.html')
     );
   });
 
 
-  grunt.registerTask('publish-pages', 'Publish a clean build, docs, and sample to github.io', function () {
+  grunt.registerTask('publish-pages', 'Publish a clean build, docs, and sample to github.io', function() {
     promising(this,
-      ensureCleanMaster().then(function () {
+      ensureCleanMaster().then(function() {
         shjs.rm('-rf', 'build');
         return system('git checkout gh-pages');
-      }).then(function () {
+      }).then(function() {
         return system('git merge master');
-      }).then(function () {
+      }).then(function() {
         return system('grunt dist-docs');
-      }).then(function () {
+      }).then(function() {
         return system('git commit -a -m \'Automatic gh-pages build\'');
-      }).then(function () {
+      }).then(function() {
         return system('git checkout master');
       })
     );
   });
 
-  grunt.registerTask('push-pages', 'Push published pages', function () {
+  grunt.registerTask('push-pages', 'Push published pages', function() {
     promising(this,
-      ensureCleanMaster().then(function () {
+      ensureCleanMaster().then(function() {
         shjs.rm('-rf', 'build');
         return system('git checkout gh-pages');
-      }).then(function () {
+      }).then(function() {
         return system('git push origin gh-pages');
-      }).then(function () {
+      }).then(function() {
         return system('git checkout master');
       })
     );
   });
 
-  grunt.registerTask('prepare-release', function () {
+  grunt.registerTask('prepare-release', function() {
     var bower = grunt.file.readJSON('bower.json'),
-        component = grunt.file.readJSON('component.json'),
-        version = bower.version;
+      component = grunt.file.readJSON('component.json'),
+      version = bower.version;
     if (version != grunt.config('pkg.version')) throw new Error('Version mismatch in bower.json');
     if (version != component.version) throw new Error('Version mismatch in component.json');
 
     promising(this,
-      ensureCleanMaster().then(function () {
+      ensureCleanMaster().then(function() {
         return exec('git tag -l ' + version + '');
-      }).then(function (result) {
+      }).then(function(result) {
         if (result.stdout.trim() !== '') throw new Error('Tag \'' + version + '\' already exists');
         grunt.config('buildtag', '');
         grunt.config('builddir', 'release');
@@ -193,24 +205,27 @@ module.exports = function (grunt) {
     );
   });
 
-  grunt.registerTask('perform-release', function () {
-    grunt.task.requires([ 'prepare-release', 'dist' ]);
+  grunt.registerTask('perform-release', function() {
+    grunt.task.requires(['prepare-release', 'dist']);
 
-    var version = grunt.config('pkg.version'), releasedir = grunt.config('builddir');
+    var version = grunt.config('pkg.version'),
+      releasedir = grunt.config('builddir');
     promising(this,
-       system('git tag ' + version + '')
-    );
+      system('git commit -m \'release ' + version + '\'').then(function() {
+        return system('git tag ' + version + '');
+      }));
   });
 
 
   // Helpers for custom tasks, mainly around promises / exec
-  var exec = require('faithful-exec'), shjs = require('shelljs');
+  var exec = require('faithful-exec'),
+    shjs = require('shelljs');
 
   function system(cmd) {
     grunt.log.write('% ' + cmd + '\n');
-    return exec(cmd).then(function (result) {
+    return exec(cmd).then(function(result) {
       grunt.log.write(result.stderr + result.stdout);
-    }, function (error) {
+    }, function(error) {
       grunt.log.write(error.stderr + '\n');
       throw new Error('Failed to run \'' + cmd + '\'');
     });
@@ -218,19 +233,19 @@ module.exports = function (grunt) {
 
   function promising(task, promise) {
     var done = task.async();
-    promise.then(function () {
+    promise.then(function() {
       done();
-    }, function (error) {
+    }, function(error) {
       grunt.log.write(error + '\n');
       done(false);
     });
   }
 
   function ensureCleanMaster() {
-    return exec('git symbolic-ref HEAD').then(function (result) {
+    return exec('git symbolic-ref HEAD').then(function(result) {
       if (result.stdout.trim() !== 'refs/heads/master') throw new Error('Not on legacy branch, aborting');
       return exec('git status --porcelain');
-    }).then(function (result) {
+    }).then(function(result) {
       if (result.stdout.trim() !== '') throw new Error('Working copy is dirty, aborting');
     });
   }
