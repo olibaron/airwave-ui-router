@@ -623,27 +623,6 @@ describe('uiView', function() {
     // Only doing tests for AngularJS 1.2.*
     if (['1.0.8', '1.1.5'].indexOf(angular.version.full) !== -1) return;
 
-    it('should disable animations if animation="false" is present', inject(function($state, $q, $compile, $animate) {
-      var content = 'Initial Content',
-        animation;
-      elem.append($compile('<div><ui-view animation="false">' + content + '</ui-view></div>')(scope));
-
-      animation = $animate.queue.shift();
-      expect(animation).toBeUndefined();
-
-      $state.transitionTo(aState);
-      $q.flush();
-      animation = $animate.queue.shift();
-      expect(animation).toBeUndefined();
-      expect(elem.text()).toBe(aState.template);
-
-      $state.transitionTo(bState);
-      $q.flush();
-      animation = $animate.queue.shift();
-      expect(animation).toBeUndefined();
-      expect(elem.text()).toBe(bState.template);
-    }));
-
     it('should do transition animations', inject(function($state, $q, $compile, $animate) {
       var content = 'Initial Content',
         animation;
