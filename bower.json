@@ -1,6 +1,6 @@
 {
   "name": "airwave-ui-router",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "license" : "MIT",
   "main": "./release/airwave-ui-router.js",
   "dependencies": {
